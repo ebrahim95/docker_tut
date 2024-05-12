@@ -3,6 +3,11 @@ version: '3.8'
 services:
   mongo:
     image: mongo
+    build:
+      labels:
+          - "com.docker.description=Todo Webapp"
+          - "com.mate.department=Learn"
+          - "com.volume.banana=Mongo Data"
     ports: 
       - 3456:27017
     environment: 
@@ -11,3 +16,11 @@ services:
       MONGO_INITDB_DATABASE: the_database  
     volumes:       
       - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js 
+      - mongo_data:/data/db
+  redis:
+    image: redis 
+    ports: 
+      - 3123:6379
+
+volumes:  
+  mongo_data:
